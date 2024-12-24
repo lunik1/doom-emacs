@@ -145,6 +145,12 @@
           (when-let (excluded (cdr (cl-find-if #'derived-mode-p +spell-excluded-faces-alist :key #'car)))
             (setq-local spell-fu-faces-exclude excluded))))
 
+      (when (and (modulep! +everywhere) (modulep! tree-sitter))
+        (setq-default spell-fu-faces-include (append spell-fu-faces-include
+                                                     '(tree-sitter-hl-face:comment
+                                                       tree-sitter-hl-face:doc
+                                                       tree-sitter-hl-face:string))))
+
       ;; TODO custom `spell-fu-check-range' function to reduce false positives
       ;;      more intelligently, or modify `spell-fu-word-regexp' to include
       ;;      non-latin charactersets.
